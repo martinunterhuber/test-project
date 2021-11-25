@@ -32,4 +32,3 @@ jobs:
         uses: martinunterhuber/test-runner@master
         with:
           project-root: /home/runner/work/test-project/test-project/main/
-          package-name: at.unterhuber.test
