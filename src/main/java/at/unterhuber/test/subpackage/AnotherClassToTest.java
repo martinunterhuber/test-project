@@ -1,6 +1,8 @@
 package at.unterhuber.test.subpackage;
 
-public class AnotherClassToTest {
+import at.unterhuber.test.ClassToTest;
+
+public class AnotherClassToTest extends ClassToTest {
     public int min(int a, int b, int c) {
         if (a < b) {
             if (c < a) {
