@@ -16,6 +16,12 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 15
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
       - name: Cache Gradle packages
         uses: actions/cache@v1
         with:
@@ -26,7 +32,10 @@ jobs:
         run: chmod +x gradlew
         working-directory: ./main
       - name: Comile
-        run: ./gradlew assemble compileTestJava
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: ./gradlew assemble compileTestJava sonarqube
         working-directory: ./main
       - name: Run Tests
         uses: martinunterhuber/test-runner@master
