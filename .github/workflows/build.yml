@@ -46,10 +46,10 @@ jobs:
       - name: get diff
         id: diff
         run: |
-          echo "::set-output name=diff::$(git diff --name-only ${{ steps.last_successful_commit.outputs.commit_hash }} | grep '.*.java')\n"
+          echo "::set-output name=diff::$(git diff --name-only ${{ steps.last_successful_commit.outputs.commit_hash }} | grep '.*.java')"
         working-directory: ./main
       - name: Run Tests
         uses: martinunterhuber/test-runner@master
         with:
           project-root: /home/runner/work/test-project/test-project/main/
-          diff: ${{ steps.diff.outputs.diff }}
+          diff: '${{ steps.diff.outputs.diff }}'
