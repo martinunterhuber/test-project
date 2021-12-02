@@ -37,20 +37,8 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: ./gradlew assemble compileTestJava sonarqube
         working-directory: ./main
-      - uses: nrwl/last-successful-commit-action@v1
-        id: last_successful_commit
-        with:
-          branch: 'master'
-          workflow_id: 'build.yml'
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-      - name: get diff
-        id: diff
-        run: |
-          DIFF=$(git diff --name-only ${{ steps.last_successful_commit.outputs.commit_hash }} | grep '.*.java')
-          echo "::set-output name=diff::$(echo $DIFF | tr '\n' ' ')"
-        working-directory: ./main
       - name: Run Tests
         uses: martinunterhuber/test-runner@master
         with:
           project-root: /home/runner/work/test-project/test-project/main/
-          diff: ${{ steps.diff.outputs.diff }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
