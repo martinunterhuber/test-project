@@ -1,6 +1,6 @@
 package at.unterhuber.test;
 
-public class ClassToTest {
+public class ClassToTest implements TestInterface {
     public int add(int a, int b) {
         return a + b;
     }
